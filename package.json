@@ -1,0 +1,11 @@
+{
+  "name": "isoartist",
+  "version": "0.0.1",
+  "description": "Small application that is capable of drawing isometric art",
+  "main": "main.js",
+  "author": "Nartallax",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.0.3"
+  }
+}

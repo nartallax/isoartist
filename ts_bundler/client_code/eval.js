@@ -1,0 +1,1 @@
+function(code, define){ return eval(code) }

@@ -1,0 +1,32 @@
+{
+    "window.zoomLevel": 1,
+    "window.restoreWindows": "all",
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+    "window.titleBarStyle": "custom",
+
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+
+    "editor.fontSize": 16,
+    "editor.fontFamily": "'Inconsolata', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.insertSpaces": false,
+    "editor.autoClosingBrackets": false,
+    "editor.links": false,
+
+    "files.autoSave": "onFocusChange",
+
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "javascript.preferences.quoteStyle": "double",
+
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "typescript.preferences.quoteStyle": "double",
+    "typescript.tsdk": "/home/nartallax/soft/node_8.9.4/lib/node_modules/typescript/lib",
+
+    "explorer.confirmDelete": false,
+    "workbench.statusBar.feedback.visible": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+}
