@@ -73,8 +73,8 @@ export class Painter implements IPainter {
 		
 	}
 	
-	image(img: HTMLCanvasElement, dx: number, dy: number, dw: number, dh: number, sx: number, sy: number, sw: number, sh: number){
-		this.context.drawImage(img, dx, dy, dw, dh, sx, sy, sw, sh);
+	image(img: HTMLCanvasElement, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number){
+		this.context.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
 	}
 	
 	close(){

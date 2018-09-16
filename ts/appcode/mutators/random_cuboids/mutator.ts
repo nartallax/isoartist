@@ -9,23 +9,9 @@ export class Mutator implements IMutator {
 	density = 0.1;
 	minSize = 1;
 	maxSize = 4;
-	
+
 	mutate(scene: Scene){
-		let remSpace = scene.bounds.volume * this.density;
-		let tw = scene.bounds.width, th = scene.bounds.height, td = scene.bounds.depth,
-			tl = scene.bounds.left, tb = scene.bounds.bottom, tn = scene.bounds.near;
-		while(remSpace > 0){
-			let w = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize,
-				h = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize,
-				d = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize;
-				
-			let sx = Math.floor(Math.random() * (tw - w)) + tl,
-				sy = Math.floor(Math.random() * (td - d)) + tn,
-				sz = Math.floor(Math.random() * (th - h)) + tb;
-				
-			let volume = w * h * d;
-			remSpace -= volume;
-			
+		let cuboidAt = (sx: number, sy: number, sz: number, w: number, d: number, h: number) => {
 			for(let x = sx; x < sx + w; x++){
 				for(let y = sy; y < sy + d; y++){
 					scene.objects.add(new EmptyFloor(x, y, sz));
@@ -47,5 +33,28 @@ export class Mutator implements IMutator {
 				}
 			}
 		}
+
+		cuboidAt(-1, -1, -1, 2, 2, 2)
+
+		/*
+		let remSpace = scene.bounds.volume * this.density;
+		let tw = scene.bounds.width, th = scene.bounds.height, td = scene.bounds.depth,
+			tl = scene.bounds.left, tb = scene.bounds.bottom, tn = scene.bounds.near;
+
+		while(remSpace > 0){
+			let w = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize,
+				h = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize,
+				d = Math.floor(Math.random() * (this.maxSize - this.minSize)) + this.minSize;
+				
+			let sx = Math.floor(Math.random() * (tw - w)) + tl,
+				sy = Math.floor(Math.random() * (td - d)) + tn,
+				sz = Math.floor(Math.random() * (th - h)) + tb;
+				
+			let volume = w * h * d;
+			remSpace -= volume;
+			
+			cuboidAt(sx, sy, sz, w, d, h);
+		}
+		*/
 	}
 }

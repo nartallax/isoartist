@@ -17,6 +17,7 @@ export class EmptyWall extends SceneObject {
 		this.yAligned = yAligned;
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
+		this.invalidate();
 	}
 	
 	markers = []
@@ -25,10 +26,10 @@ export class EmptyWall extends SceneObject {
 		let yInc = this.yAligned? 1: 0;
 		let xInc = this.yAligned? 0: 1;
 		
-		let a = this;
-		let b = {x: this.x, y: this.y, z: this.z + 1};
-		let c = {x: this.x + xInc, y: this.y + yInc, z: this.z + 1}
-		let d = {x: this.x + xInc, y: this.y + yInc, z: this.z}
+		let a = {x: 0, y: 0, z: 0};
+		let b = {x: 0, y: 0, z: 1};
+		let c = {x: xInc, y: yInc, z: 1}
+		let d = {x: xInc, y: yInc, z: 0}
 		let arr = [a, b, c, d, a]
 		painter.polyfill(arr, this.fillColor, this.strokeColor);
 	}

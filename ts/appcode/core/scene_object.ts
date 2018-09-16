@@ -17,7 +17,6 @@ export abstract class SceneObject implements ISceneObject {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.invalidate();
 	}
 	
 	invalidate(){

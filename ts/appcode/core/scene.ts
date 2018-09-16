@@ -3,6 +3,7 @@ import {Rasterizer, RasterizerOptions} from "./rasterizer"
 import {Painter} from "./painter"
 import {Cuboid} from "./cuboid"
 import {DrawCache} from "./draw_cache"
+import {Orderer} from "core/orderer";
 
 export interface SceneOptions extends RasterizerOptions {
 	context: CanvasRenderingContext2D
@@ -34,12 +35,14 @@ export class Scene implements IScene {
 	readonly bounds: Cuboid;
 	readonly name = "Scene";
 	readonly drawCache: DrawCache;
+	readonly orderer: Orderer;
 	
 	private rasterizer: Rasterizer;
 	
 	constructor(options: SceneOptions){
 		this.options = options;
 		this.rasterizer = new Rasterizer(options);
+		this.orderer = new Orderer({ rasterizer: this.rasterizer, content: this.objects })
 		this.drawCache = new DrawCache(this.rasterizer);
 		this.bounds = new Cuboid(
 			{ x: -Math.floor(options.width / 2), y: -Math.floor(options.depth / 2), z: 0},
@@ -57,16 +60,20 @@ export class Scene implements IScene {
 	}
 	
 	draw(painter: Painter){
+		this.orderer.doOrdered(x => this.drawCache.draw(x, painter));
+		/*
 		for(let object of this.objects){
 			this.drawCache.draw(object, painter);
-			//object.draw(painter);
 		}
+		*/
 	}
 	
 	private invalidateDrawCache(){
+		this.drawCache.reset();
 	}
 	
 	private invalidateOrder(){
+		this.orderer.reset();
 	}
 	
 	invalidateScale(){

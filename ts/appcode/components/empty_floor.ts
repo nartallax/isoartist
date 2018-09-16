@@ -15,15 +15,16 @@ export class EmptyFloor extends SceneObject {
 		super(x, y, z)
 		this.fillColor = fillColor;
 		this.strokeColor = strokeColor;
+		this.invalidate();
 	}
 	
 	markers = []
 	
 	draw(painter: Painter){
-		let a = this;
-		let b = {x: this.x + 1, y: this.y, z: this.z};
-		let c = {x: this.x + 1, y: this.y + 1, z: this.z}
-		let d = {x: this.x, y: this.y + 1, z: this.z}
+		let a = {x: 0, y: 0, z: 0};
+		let b = {x: 1, y: 0, z: 0};
+		let c = {x: 1, y: 1, z: 0}
+		let d = {x: 0, y: 1, z: 0}
 		let arr = [a, b, c, d, a];
 		painter.polyfill(arr, this.fillColor, this.strokeColor);
 	}

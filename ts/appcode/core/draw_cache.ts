@@ -5,6 +5,8 @@ import {Rasterizer} from "./rasterizer"
 interface DrawCacheItem {
 	w: number;
 	h: number;
+	x: number;
+	y: number;
 	el: HTMLCanvasElement | null;
 }
 
@@ -29,7 +31,8 @@ export class DrawCache {
 			item = this.cache[obj.drawCacheKey] = this.drawOffscreen(obj);
 		if(item.el){
 			let p = this.rasterizer.point(obj);
-			painter.image(this.cache[obj.drawCacheKey].el as HTMLCanvasElement, p.x, p.y, item.w, item.h, 0, 0, item.w, item.h);
+			//console.log(p.x, p.y)
+			painter.image(this.cache[obj.drawCacheKey].el as HTMLCanvasElement, 0, 0, item.w, item.h, p.x + item.x, p.y + item.y, item.w, item.h);
 		}
 			
 	}
@@ -43,29 +46,28 @@ export class DrawCache {
 		obj.draw(fakePainter);
 		
 		if(!r.haveSizeData){
-			return {el: null, w: 0, h: 0}
+			return {el: null, w: 0, h: 0, x: 0, y: 0}
 		}
 		
+
+		r.opts.centerX = -r.left;
+		r.opts.centerY = -r.bottom;
+		let w = Math.ceil(r.right - r.left), h = Math.ceil(r.top - r.bottom);
+
+		//console.log("Drawn " + obj.drawCacheKey + ": ", w, h)
+
 		let canvas = document.createElement("canvas");
-		// TODO: test for perf here
-		canvas.width = 1000;
-		canvas.height = 1000;
+		canvas.width = w;
+		canvas.height = h;
 		let context = canvas.getContext("2d") as CanvasRenderingContext2D;
 		
 		//TODO: пересоздавать растеризатор здесь? оно стоит того?
 		let painter = new Painter(r, context);
-		
-		
-		r.opts.centerX = r.left;
-		r.opts.centerY = r.bottom;
+
 		r.updateCache();
 		obj.draw(painter);
 		
-		return {
-			el: canvas,
-			w: r.right - r.left,
-			h: r.top - r.bottom
-		}
+		return { el: canvas, w: w, h: h, x: r.left, y: r.bottom}
 	}
 	
 }

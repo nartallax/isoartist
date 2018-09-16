@@ -93,4 +93,26 @@ export class DrawController {
 		painter.close();
 		perf.end()
 	}
+
+	rotate(speed: number): () => void{
+		let lastFrame = Date.now();
+	
+		let rafIndex: number;
+		let doDraw = () => {
+			let span = Date.now() - lastFrame;
+			lastFrame = Date.now();
+			
+			this.scene.options.yaw += speed * (span / 1000);
+			this.scene.invalidate();
+			this.draw();
+			rafIndex = requestAnimationFrame(doDraw);
+		}
+		
+		doDraw();
+		return () => cancelAnimationFrame(rafIndex);
+	}
+
+	run(){
+		this.rotate(Math.PI / 10);
+	}
 }

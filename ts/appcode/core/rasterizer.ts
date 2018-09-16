@@ -58,11 +58,18 @@ export class Rasterizer {
 		let x = (point.x * this.yc) - (point.y * this.ys);
 		let y = (((point.x * this.ys) + (point.y * this.yc)) * this.ps)	- (point.z * this.pc)
 		
+		// TODO: придумать, что тут делать с дробными координатами, или не тут
+		// дробные координаты = плохо для отрисовки, медленнее, включается размытие
+		// целочисленные координаты = откуда-то берутся гепы в 1 пиксель между элементами
 		let result = {
 			x: (this.opts.scale * x) + this.opts.centerX,
 			y: (this.opts.scale * y) + this.opts.centerY
 		}
 		return result;
+	}
+
+	depth(p: ScenePoint): number {
+		return (((p.x * this.ys) + (p.y * this.yc)) * this.pc) + (p.z * this.ps);
 	}
 	
 }
@@ -82,7 +89,7 @@ export class SizeRecordingRasterizer extends Rasterizer {
 		this.left = Math.min(this.left, res.x);
 		this.right = Math.max(this.right, res.x)
 		this.top = Math.max(this.top, res.y);
-		this.bottom = Math.max(this.bottom, res.y);
+		this.bottom = Math.min(this.bottom, res.y);
 		return res;
 	}
 	

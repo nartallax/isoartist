@@ -4,6 +4,8 @@ import {EmptyFloor} from "components/empty_floor"
 export class Mutator implements IMutator {
 	name = "zero_floor_plain";
 	priority = 0;
+
+	disabled = true
 	
 	mutate(scene: Scene){
 		for(let x = scene.bounds.left; x < scene.bounds.right; x++){
